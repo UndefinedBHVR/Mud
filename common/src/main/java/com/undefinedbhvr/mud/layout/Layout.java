@@ -8,19 +8,21 @@ import java.util.List;
 /**
  * The Layout class is responsible for managing UI element hierarchies and their positioning.
  * It provides a fluent API for creating, configuring, and nesting UI elements.
- * Layouts are initialized with screen dimensions and facilitate the construction of 
+ * Layouts are initialized with screen dimensions and facilitate the construction of
  * complex UI structures through a builder-like pattern.
  */
 public class Layout {
     private final Context context = new Context();
     // List of completed root elements
     private final List<Element> elements = new ArrayList<>();
+    // List of elements in depth first post-order traversal
+    private final List<Element> dsaPostOrder = new ArrayList<>();
     private final Element rootElement;
     private Element currentElement = null;
 
     /**
      * Gets the root element of this layout.
-     * 
+     *
      * @return The root element of the layout hierarchy
      */
     public Element getRootElement() {
@@ -30,7 +32,7 @@ public class Layout {
     /**
      * Creates a new layout with specified screen dimensions.
      * Initializes a root element sized to the screen dimensions.
-     * 
+     *
      * @param screenX The width of the screen in pixels
      * @param screenY The height of the screen in pixels
      */
@@ -60,7 +62,7 @@ public class Layout {
     /**
      * Creates a new element with the specified ID as the child of the current element,
      * and makes it the current element.
-     * 
+     *
      * @param id The unique identifier for the new element
      */
     public void createElement(String id) {
@@ -76,7 +78,7 @@ public class Layout {
 
     /**
      * Returns the current element for configuration.
-     * 
+     *
      * @return The current element being worked on
      */
     public Element configureElement() {
@@ -88,47 +90,85 @@ public class Layout {
      * This method adjusts the parent's dimensions based on the current element's size
      * and the layout direction. It also ensures the element's dimensions are clamped
      * to its min/max constraints.
-     * 
+     *
      * @throws IllegalStateException if there is no current element to close
      */
     public void closeElement() {
-        if (currentElement == null) {
-            throw new IllegalStateException("No current element to close");
-        }
+        dsaPostOrder.add(currentElement);
 
         if (currentElement.getParent() != null) {
-            final Element parent = currentElement.getParent();
-            final int childGap = (parent.getChildren().size() - 1) * parent.getChildren().size();
-            // Adjust the parent's width and height
-            if (parent.getDirection() == Direction.Horizontal) {
-                currentElement.setWidth(currentElement.getWidth() + childGap);
-                parent.setWidth(parent.getWidth() + currentElement.getWidth());
-                parent.setMinWidth(parent.getMinWidth() + currentElement.getMinWidth());
-                parent.setHeight(Math.max(parent.getHeight(), currentElement.getHeight()));
-                parent.setMinHeight(Math.max(parent.getMinHeight(), currentElement.getMinHeight()));
-            } else {
-                currentElement.setHeight(currentElement.getHeight() + childGap);
-                parent.setHeight(parent.getHeight() + currentElement.getHeight());
-                parent.setMinHeight(parent.getMinHeight() + currentElement.getMinHeight());
-                parent.setWidth(Math.max(parent.getWidth(), currentElement.getWidth()));
-                parent.setMinWidth(Math.max(parent.getMinWidth(), currentElement.getMinWidth()));
-            }
-        }
-
-        // Clamp us between our min and max sizes
-        currentElement.setHeight(Math.min(Math.max(currentElement.getHeight(), currentElement.getMinHeight()), currentElement.getMaxHeight()));
-        currentElement.setWidth(Math.min(Math.max(currentElement.getWidth(), currentElement.getMinWidth()), currentElement.getMaxWidth()));
-
-        if (currentElement.getParent() != null) {
-            // Set the current element back to its parent
             currentElement = currentElement.getParent();
         }
     }
 
+    private void sizeElementWidth(Element currentElement) {
+        if (currentElement.getParent() != null) {
+            final Element parent = currentElement.getParent();
+            boolean isHorizontal = parent.getDirection() == Direction.Horizontal;
+            
+            if (isHorizontal) {
+                sizeAlongFlowWidth(currentElement, parent);
+            } else {
+                sizeAcrossFlowWidth(currentElement, parent);
+            }
+        }
+
+        clampElementWidth(currentElement);
+    }
+
+    private void sizeElementHeight(Element currentElement) {
+        if (currentElement.getParent() != null) {
+            final Element parent = currentElement.getParent();
+            boolean isHorizontal = parent.getDirection() == Direction.Horizontal;
+            
+            if (isHorizontal) {
+                sizeAcrossFlowHeight(currentElement, parent);
+            } else {
+                sizeAlongFlowHeight(currentElement, parent);
+            }
+        }
+
+        clampElementHeight(currentElement);
+    }
+
+    private void sizeAlongFlowWidth(Element currentElement, Element parent) {
+        final int childGap = (parent.getChildren().size() - 1) * parent.getChildren().size();
+        
+        currentElement.setWidth(currentElement.getWidth() + childGap);
+        parent.setWidth(parent.getWidth() + currentElement.getWidth());
+        parent.setMinWidth(parent.getMinWidth() + currentElement.getMinWidth());
+    }
+
+    private void sizeAlongFlowHeight(Element currentElement, Element parent) {
+        final int childGap = (parent.getChildren().size() - 1) * parent.getChildren().size();
+        
+        currentElement.setHeight(currentElement.getHeight() + childGap);
+        parent.setHeight(parent.getHeight() + currentElement.getHeight());
+        parent.setMinHeight(parent.getMinHeight() + currentElement.getMinHeight());
+    }
+
+    private void sizeAcrossFlowWidth(Element currentElement, Element parent) {
+        parent.setWidth(Math.max(parent.getWidth(), currentElement.getWidth()));
+        parent.setMinWidth(Math.max(parent.getMinWidth(), currentElement.getMinWidth()));
+    }
+
+    private void sizeAcrossFlowHeight(Element currentElement, Element parent) {
+        parent.setHeight(Math.max(parent.getHeight(), currentElement.getHeight()));
+        parent.setMinHeight(Math.max(parent.getMinHeight(), currentElement.getMinHeight()));
+    }
+
+    private void clampElementWidth(Element currentElement) {
+        currentElement.setWidth(Math.min(Math.max(currentElement.getWidth(), currentElement.getMinWidth()), currentElement.getMaxWidth()));
+    }
+
+    private void clampElementHeight(Element currentElement) {
+        currentElement.setHeight(Math.min(Math.max(currentElement.getHeight(), currentElement.getMinHeight()), currentElement.getMaxHeight()));
+    }
+
     /**
      * Convenience method to create, configure, and close an element in one operation.
-     * 
-     * @param id The unique identifier for the new element
+     *
+     * @param id         The unique identifier for the new element
      * @param configurer A consumer function that configures the created element
      */
     public void openElement(String id, java.util.function.Consumer<Element> configurer) {
@@ -146,7 +186,7 @@ public class Layout {
     /**
      * Finalizes the layout by ensuring all elements are closed, growing children
      * according to their sizing strategies, and positioning all elements.
-     * 
+     *
      * @throws IllegalStateException if not all elements have been closed
      */
     public void finalizeLayout() {
@@ -158,28 +198,45 @@ public class Layout {
         // Close our root element
         closeElement();
 
-        // Finalize the layout by growing children
-        for (Element element : elements) {
-            element.growChildren();
+        // Width sizing pass
+        for (Element element : dsaPostOrder) {
+            sizeElementWidth(element);
         }
-        
+
+        // Grow width pass
+        for (Element element : elements) {
+            element.growChildrenWidth();
+        }
+
+        // Text Wrapping Pass (unimplemented)
+
+        // Height sizing pass
+        for (Element element : dsaPostOrder) {
+            sizeElementHeight(element);
+        }
+
+        // Then grow height dimensions
+        for (Element element : elements) {
+            element.growChildrenHeight();
+        }
+
         // Position all elements
         rootElement.setScreenPositionX(0);
         rootElement.setScreenPositionY(0);
         positionElements(rootElement);
     }
-    
+
     /**
      * Recursively positions all children of an element based on layout constraints.
      * Computes absolute screen positions for each element in the hierarchy.
-     * 
+     *
      * @param parent The parent element whose children need positioning
      */
     private void positionElements(Element parent) {
         if (parent.getChildren().isEmpty()) {
             return;
         }
-        
+
         float currentX = parent.getScreenPositionX() + parent.getPaddingLeft();
         float currentY = parent.getScreenPositionY() + parent.getPaddingTop();
 
@@ -256,7 +313,7 @@ public class Layout {
             } else {
                 currentY += child.getHeight() + parent.getChildGap();
             }
-            
+
             // Recursively position this child's children
             positionElements(child);
         }
@@ -279,9 +336,9 @@ public class Layout {
 
     /**
      * Recursively prints an element and its children with proper indentation.
-     * 
+     *
      * @param element The element to print
-     * @param depth The current depth in the tree (for indentation)
+     * @param depth   The current depth in the tree (for indentation)
      */
     private void printElementTree(Element element, int depth) {
         // Create indentation based on depth

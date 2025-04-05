@@ -50,7 +50,7 @@ public class Element {
 
     /**
      * Creates an element with a given parent.
-     * 
+     *
      * @param parent The parent element to which this element will be attached
      */
     Element(Element parent) {
@@ -60,18 +60,18 @@ public class Element {
 
     /**
      * Creates an element with a given parent and specific ID.
-     * 
+     *
      * @param parent The parent element to which this element will be attached
-     * @param id The unique identifier for this element
+     * @param id     The unique identifier for this element
      */
-    Element (Element parent, String id) {
+    Element(Element parent, String id) {
         this.id = id != null ? id : UUID.randomUUID().toString();
         this.parent = parent;
     }
 
     /**
      * Gets the unique identifier of this element.
-     * 
+     *
      * @return The element's ID
      */
     public String getId() {
@@ -80,7 +80,7 @@ public class Element {
 
     /**
      * Adds a child element to this element.
-     * 
+     *
      * @param child The element to add as a child
      * @return This element for method chaining
      */
@@ -91,7 +91,7 @@ public class Element {
 
     /**
      * Gets the horizontal sizing strategy for this element.
-     * 
+     *
      * @return The current horizontal sizing strategy
      */
     public Sizing getxSizing() {
@@ -101,7 +101,7 @@ public class Element {
     /**
      * Sets the horizontal sizing strategy for this element.
      * If using fixed sizing, the element's width, minWidth and maxWidth will be set to the specified value.
-     * 
+     *
      * @param xSizing The sizing strategy to use horizontally
      * @return This element for method chaining
      */
@@ -117,7 +117,7 @@ public class Element {
 
     /**
      * Gets the vertical sizing strategy for this element.
-     * 
+     *
      * @return The current vertical sizing strategy
      */
     public Sizing getySizing() {
@@ -127,7 +127,7 @@ public class Element {
     /**
      * Sets the vertical sizing strategy for this element.
      * If using fixed sizing, the element's height, minHeight and maxHeight will be set to the specified value.
-     * 
+     *
      * @param ySizing The sizing strategy to use vertically
      * @return This element for method chaining
      */
@@ -143,7 +143,7 @@ public class Element {
 
     /**
      * Gets the top padding of this element.
-     * 
+     *
      * @return The top padding in pixels
      */
     public float getPaddingTop() {
@@ -152,7 +152,7 @@ public class Element {
 
     /**
      * Sets the top padding of this element.
-     * 
+     *
      * @param paddingTop The top padding to set in pixels
      * @return This element for method chaining
      */
@@ -163,7 +163,7 @@ public class Element {
 
     /**
      * Gets the right padding of this element.
-     * 
+     *
      * @return The right padding in pixels
      */
     public float getPaddingRight() {
@@ -172,7 +172,7 @@ public class Element {
 
     /**
      * Sets the right padding of this element.
-     * 
+     *
      * @param paddingRight The right padding to set in pixels
      * @return This element for method chaining
      */
@@ -183,7 +183,7 @@ public class Element {
 
     /**
      * Gets the bottom padding of this element.
-     * 
+     *
      * @return The bottom padding in pixels
      */
     public float getPaddingBottom() {
@@ -192,7 +192,7 @@ public class Element {
 
     /**
      * Sets the bottom padding of this element.
-     * 
+     *
      * @param paddingBottom The bottom padding to set in pixels
      * @return This element for method chaining
      */
@@ -203,7 +203,7 @@ public class Element {
 
     /**
      * Gets the left padding of this element.
-     * 
+     *
      * @return The left padding in pixels
      */
     public float getPaddingLeft() {
@@ -212,7 +212,7 @@ public class Element {
 
     /**
      * Sets the left padding of this element.
-     * 
+     *
      * @param paddingLeft The left padding to set in pixels
      * @return This element for method chaining
      */
@@ -223,7 +223,7 @@ public class Element {
 
     /**
      * Gets the gap between child elements.
-     * 
+     *
      * @return The gap size in pixels
      */
     public float getChildGap() {
@@ -232,7 +232,7 @@ public class Element {
 
     /**
      * Sets the gap between child elements.
-     * 
+     *
      * @param childGap The gap size to set in pixels
      * @return This element for method chaining
      */
@@ -243,7 +243,7 @@ public class Element {
 
     /**
      * Gets the parent element of this element.
-     * 
+     *
      * @return The parent element, or null if this is a root element
      */
     public Element getParent() {
@@ -252,7 +252,7 @@ public class Element {
 
     /**
      * Sets the parent element of this element.
-     * 
+     *
      * @param parent The parent element to set
      * @return This element for method chaining
      */
@@ -263,7 +263,7 @@ public class Element {
 
     /**
      * Gets the layout direction of this element.
-     * 
+     *
      * @return The layout direction (Horizontal or Vertical)
      */
     public Direction getDirection() {
@@ -272,7 +272,7 @@ public class Element {
 
     /**
      * Sets the layout direction of this element.
-     * 
+     *
      * @param direction The layout direction to set
      * @return This element for method chaining
      */
@@ -283,7 +283,7 @@ public class Element {
 
     /**
      * Gets the height of this element.
-     * 
+     *
      * @return The height in pixels
      */
     public float getHeight() {
@@ -292,7 +292,7 @@ public class Element {
 
     /**
      * Sets the height of this element.
-     * 
+     *
      * @param height The height to set in pixels
      * @return This element for method chaining
      */
@@ -303,7 +303,7 @@ public class Element {
 
     /**
      * Gets the width of this element.
-     * 
+     *
      * @return The width in pixels
      */
     public float getWidth() {
@@ -312,7 +312,7 @@ public class Element {
 
     /**
      * Sets the width of this element.
-     * 
+     *
      * @param width The width to set in pixels
      * @return This element for method chaining
      */
@@ -323,7 +323,7 @@ public class Element {
 
     /**
      * Gets the list of child elements.
-     * 
+     *
      * @return The list of child elements
      */
     public List<Element> getChildren() {
@@ -332,7 +332,7 @@ public class Element {
 
     /**
      * Gets the absolute X position of this element on the screen.
-     * 
+     *
      * @return The X position in pixels
      */
     public float getScreenPositionX() {
@@ -341,7 +341,7 @@ public class Element {
 
     /**
      * Sets the absolute X position of this element on the screen.
-     * 
+     *
      * @param screenPositionX The X position to set in pixels
      * @return This element for method chaining
      */
@@ -352,7 +352,7 @@ public class Element {
 
     /**
      * Gets the absolute Y position of this element on the screen.
-     * 
+     *
      * @return The Y position in pixels
      */
     public float getScreenPositionY() {
@@ -361,7 +361,7 @@ public class Element {
 
     /**
      * Sets the absolute Y position of this element on the screen.
-     * 
+     *
      * @param screenPositionY The Y position to set in pixels
      * @return This element for method chaining
      */
@@ -371,38 +371,64 @@ public class Element {
     }
 
     /**
-     * Grows children along both main and cross axes based on their sizing properties.
-     * This method handles sizing and distribution of space among child elements according
-     * to their sizing strategies (fixed, hug, or grow).
-     * 
+     * Grows children along the width dimension based on their sizing properties.
+     * This handles horizontal layout growth and vertical cross-axis growth.
+     *
      * @return This element for method chaining
      */
-    public Element growChildren() {
-        boolean isHorizontal = direction == Direction.Horizontal;
+    public Element growChildrenWidth() {
+        if (direction == Direction.Horizontal) {
+            growMainAxis(
+                    Element::getWidth,
+                    Element::setWidth,
+                    Element::getxSizing,
+                    Element::getMinWidth,
+                    Element::getMaxWidth,
+                    getWidth(),
+                    paddingLeft + paddingRight
+            );
+        } else {
+            growCrossAxis(
+                    Element::getWidth,
+                    Element::setWidth,
+                    Element::getxSizing,
+                    Element::getMinWidth,
+                    Element::getMaxWidth,
+                    getWidth(),
+                    paddingLeft + paddingRight
+            );
+        }
+        return this;
+    }
 
-        // Main axis configuration (width for horizontal, height for vertical)
-        Function<Element, Float> getMainSize = isHorizontal ? Element::getWidth : Element::getHeight;
-        BiConsumer<Element, Float> setMainSize = isHorizontal ? Element::setWidth : Element::setHeight;
-        Function<Element, Sizing> getMainSizing = isHorizontal ? Element::getxSizing : Element::getySizing;
-        Function<Element, Float> getMinMainSize = isHorizontal ? Element::getMinWidth : Element::getMinHeight;
-        Function<Element, Float> getMaxMainSize = isHorizontal ? Element::getMaxWidth : Element::getMaxHeight;
-        float mainPadding = isHorizontal ? paddingLeft + paddingRight : paddingTop + paddingBottom;
-        float mainSize = isHorizontal ? getWidth() : getHeight();
-
-        // Cross axis configuration (height for horizontal, width for vertical)
-        Function<Element, Float> getCrossSize = isHorizontal ? Element::getHeight : Element::getWidth;
-        BiConsumer<Element, Float> setCrossSize = isHorizontal ? Element::setHeight : Element::setWidth;
-        Function<Element, Sizing> getCrossSizing = isHorizontal ? Element::getySizing : Element::getxSizing;
-        Function<Element, Float> getMinCrossSize = isHorizontal ? Element::getMinHeight : Element::getMinWidth;
-        Function<Element, Float> getMaxCrossSize = isHorizontal ? Element::getMaxHeight : Element::getMaxWidth;
-        float crossPadding = isHorizontal ? paddingTop + paddingBottom : paddingLeft + paddingRight;
-        float crossSize = isHorizontal ? getHeight() : getWidth();
-
-        // Grow along main axis
-        growMainAxis(getMainSize, setMainSize, getMainSizing, getMinMainSize, getMaxMainSize, mainSize, mainPadding);
-
-        // Grow along cross axis
-        growCrossAxis(getCrossSize, setCrossSize, getCrossSizing, getMinCrossSize, getMaxCrossSize, crossSize, crossPadding);
+    /**
+     * Grows children along the height dimension based on their sizing properties.
+     * This handles vertical layout growth and horizontal cross-axis growth.
+     *
+     * @return This element for method chaining
+     */
+    public Element growChildrenHeight() {
+        if (direction == Direction.Horizontal) {
+            growCrossAxis(
+                    Element::getHeight,
+                    Element::setHeight,
+                    Element::getySizing,
+                    Element::getMinHeight,
+                    Element::getMaxHeight,
+                    getHeight(),
+                    paddingTop + paddingBottom
+            );
+        } else {
+            growMainAxis(
+                    Element::getHeight,
+                    Element::setHeight,
+                    Element::getySizing,
+                    Element::getMinHeight,
+                    Element::getMaxHeight,
+                    getHeight(),
+                    paddingTop + paddingBottom
+            );
+        }
         return this;
     }
 
@@ -410,12 +436,12 @@ public class Element {
      * Grows children along the main axis (direction of layout flow).
      * This method distributes available space among growable children
      * according to their needs, prioritizing smaller elements first.
-     * 
-     * @param getSize Function to get the size of an element along the main axis
-     * @param setSize Function to set the size of an element along the main axis
-     * @param getSizing Function to get the sizing strategy of an element along the main axis
+     *
+     * @param getSize    Function to get the size of an element along the main axis
+     * @param setSize    Function to set the size of an element along the main axis
+     * @param getSizing  Function to get the sizing strategy of an element along the main axis
      * @param parentSize The size of the parent element along the main axis
-     * @param padding The padding of the parent element along the main axis
+     * @param padding    The padding of the parent element along the main axis
      */
     private void growMainAxis(
             Function<Element, Float> getSize,
@@ -424,7 +450,8 @@ public class Element {
             Function<Element, Float> getMinSize,
             Function<Element, Float> getMaxSize,
             float parentSize,
-            float padding) {
+            float padding
+    ) {
 
         List<Element> growable = new ArrayList<>();
         List<Element> shrinkable = new ArrayList<>();
@@ -507,12 +534,12 @@ public class Element {
      * Grows children along the cross axis (perpendicular to layout flow).
      * This will increase the size of growable children to the maximum size allowed
      * by the parent element.
-     * 
-     * @param getSize Function to get the size of an element along the cross axis
-     * @param setSize Function to set the size of an element along the cross axis
-     * @param getSizing Function to get the sizing strategy of an element along the cross axis
+     *
+     * @param getSize    Function to get the size of an element along the cross axis
+     * @param setSize    Function to set the size of an element along the cross axis
+     * @param getSizing  Function to get the sizing strategy of an element along the cross axis
      * @param parentSize The size of the parent element along the cross axis
-     * @param padding The padding of the parent element along the cross axis
+     * @param padding    The padding of the parent element along the cross axis
      */
     private void growCrossAxis(
             Function<Element, Float> getSize,
@@ -535,7 +562,7 @@ public class Element {
 
     /**
      * Gets the minimum width constraint of this element.
-     * 
+     *
      * @return The minimum width in pixels
      */
     public float getMinWidth() {
@@ -544,7 +571,7 @@ public class Element {
 
     /**
      * Sets the minimum width constraint of this element.
-     * 
+     *
      * @param minWidth The minimum width to set in pixels
      * @return This element for method chaining
      */
@@ -555,7 +582,7 @@ public class Element {
 
     /**
      * Gets the minimum height constraint of this element.
-     * 
+     *
      * @return The minimum height in pixels
      */
     public float getMinHeight() {
@@ -564,7 +591,7 @@ public class Element {
 
     /**
      * Sets the minimum height constraint of this element.
-     * 
+     *
      * @param minHeight The minimum height to set in pixels
      * @return This element for method chaining
      */
@@ -575,7 +602,7 @@ public class Element {
 
     /**
      * Gets the maximum width constraint of this element.
-     * 
+     *
      * @return The maximum width in pixels
      */
     public float getMaxWidth() {
@@ -584,7 +611,7 @@ public class Element {
 
     /**
      * Sets the maximum width constraint of this element.
-     * 
+     *
      * @param maxWidth The maximum width to set in pixels
      * @return This element for method chaining
      */
@@ -595,7 +622,7 @@ public class Element {
 
     /**
      * Gets the maximum height constraint of this element.
-     * 
+     *
      * @return The maximum height in pixels
      */
     public float getMaxHeight() {
@@ -604,7 +631,7 @@ public class Element {
 
     /**
      * Sets the maximum height constraint of this element.
-     * 
+     *
      * @param maxHeight The maximum height to set in pixels
      * @return This element for method chaining
      */
@@ -615,7 +642,7 @@ public class Element {
 
     /**
      * Gets the horizontal alignment of children within this element.
-     * 
+     *
      * @return The horizontal alignment (Start, Center, or End)
      */
     public Alignment getxAlign() {
@@ -624,7 +651,7 @@ public class Element {
 
     /**
      * Sets the horizontal alignment pattern of the children of this element.
-     * 
+     *
      * @param xAlign The horizontal alignment to set (Start, Center, or End)
      */
     public Element setxAlign(Alignment xAlign) {
@@ -634,7 +661,7 @@ public class Element {
 
     /**
      * Gets the vertical alignment of children within this element.
-     * 
+     *
      * @return The vertical alignment (Start, Center, or End)
      */
     public Alignment getyAlign() {
@@ -643,7 +670,7 @@ public class Element {
 
     /**
      * Sets the vertical alignment pattern of the children of this element.
-     * 
+     *
      * @param yAlign The vertical alignment to set (Start, Center, or End)
      */
     public Element setyAlign(Alignment yAlign) {
