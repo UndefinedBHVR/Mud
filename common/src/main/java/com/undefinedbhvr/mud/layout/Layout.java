@@ -6,10 +6,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * The Layout class is responsible for managing UI element hierarchies and their positioning.
- * It provides a fluent API for creating, configuring, and nesting UI elements.
- * Layouts are initialized with screen dimensions and facilitate the construction of
- * complex UI structures through a builder-like pattern.
+ * The Layout class is responsible for managing the layout of a UI hierarchy
+ * within and arbitrarily sized screen.
+ * Layouts are created by initializing the class then chaining calls to openElement()
+ * which provides a lambda to configure the element.
  */
 public class Layout {
     private final Context context = new Context();
@@ -86,12 +86,7 @@ public class Layout {
     }
 
     /**
-     * Closes the current element and returns to the parent element.
-     * This method adjusts the parent's dimensions based on the current element's size
-     * and the layout direction. It also ensures the element's dimensions are clamped
-     * to its min/max constraints.
-     *
-     * @throws IllegalStateException if there is no current element to close
+     * Closes the current element and returns to its parent element.
      */
     public void closeElement() {
         dsaPostOrder.add(currentElement);
@@ -101,6 +96,10 @@ public class Layout {
         }
     }
 
+
+    /**
+     * Sizes the element's width based on its parent's direction and alignment.
+     */
     private void sizeElementWidth(Element currentElement) {
         if (currentElement.getParent() != null) {
             final Element parent = currentElement.getParent();
@@ -116,6 +115,9 @@ public class Layout {
         clampElementWidth(currentElement);
     }
 
+    /**
+     * Sizes the element's height based on its parent's direction and alignment.
+     */
     private void sizeElementHeight(Element currentElement) {
         if (currentElement.getParent() != null) {
             final Element parent = currentElement.getParent();
@@ -184,8 +186,7 @@ public class Layout {
     }
 
     /**
-     * Finalizes the layout by ensuring all elements are closed, growing children
-     * according to their sizing strategies, and positioning all elements.
+     * Finalizes the layout by ensuring all elements are closed and then does all the layout passes.
      *
      * @throws IllegalStateException if not all elements have been closed
      */
