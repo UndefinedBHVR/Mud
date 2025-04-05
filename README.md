@@ -15,11 +15,11 @@ Mud is a UI layout library for Minecraft, based heavily on the layout algorithm 
 Mud uses a multi-pass layout algorithm. The final algorithm will use the following seven passes:
   - The First pass is the initial layout creation, which collects elements by Depth First Post-Order into a List.
   - The Second pass is Fixed Width Sizing, which calculates the size along the X axis for all elements following Depth First Post-Order ordering.
-  - The Third pass is Width Growth/Shrink Sizing, which grows/shrinks relevant items along the X axis to fill or fit within its parent element following Depth First Post-Order ordering.
+  - The Third pass is Width Growth/Shrink Sizing, which grows/shrinks relevant items along the X axis to fill or fit within its parent element following Depth First Pre-Order ordering.
   - The Fourth pass is Text Wrapping, which is currently unimplemented.
   - The Fifth pass is Fixed Height Sizing, which calculates the size along the Y axis for all elements following Depth First Post-Order ordering.
-  - The Sixth pass is Height Growth/Shrink Sizing, which grows/shrinks relevant items along the Y axis to fill or fit within its parent element following Depth First Post-Order ordering.
-  - The Seventh pass is Positioning/Alignment which uses the calculated sizes and parent's alignment rules to determine the placement of elements along each axis.
+  - The Sixth pass is Height Growth/Shrink Sizing, which grows/shrinks relevant items along the Y axis to fill or fit within its parent element following Depth First Pre-Order ordering.
+  - The Seventh pass is Positioning/Alignment which uses the calculated sizes and parent's alignment rules to determine the placement of elements along each axis. This also follows Depth First Pre-Order ordering.
 
 ## Disclaimer
 The code contained within this repository is an original implementation of the same layout algorithm used by the Clay UI Layout Library.
