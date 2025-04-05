@@ -13,6 +13,8 @@ import java.util.function.Function;
  * Elements can be configured to grow, shrink, or maintain fixed dimensions.
  */
 public class Element {
+    // The list of child elements
+    private final List<Element> children = new ArrayList<>();
     private String id = UUID.randomUUID().toString();
     private Direction direction = Direction.Horizontal;
     // By default, we want to hug the size of the children
@@ -27,8 +29,6 @@ public class Element {
     private float childGap;
     // The parent element, or null if this is a root element
     private Element parent;
-    // The list of child elements
-    private final List<Element> children = new ArrayList<>();
     private float width = 0;
     private float height = 0;
     private float minWidth = 0;

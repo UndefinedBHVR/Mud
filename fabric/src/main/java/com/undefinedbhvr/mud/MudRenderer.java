@@ -1,7 +1,6 @@
 package com.undefinedbhvr.mud;
 
 import com.undefinedbhvr.mud.layout.*;
-
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.screens.Screen;
@@ -13,8 +12,8 @@ import java.util.Map;
 
 public class MudRenderer extends Screen {
     private final Map<String, Integer> elementColors = new HashMap<>();
-    
-    public MudRenderer(Layout layout) {
+
+    public MudRenderer() {
         super(Component.literal("Mud UI"));
 
         elementColors.put("sidebar", new Color(232, 59, 59, 128).getRGB());
@@ -22,7 +21,7 @@ public class MudRenderer extends Screen {
         elementColors.put("sidebar-header2", new Color(154, 59, 232, 128).getRGB());
         elementColors.put("content", new Color(232, 203, 59, 128).getRGB());
     }
-    
+
     @Override
     public void render(GuiGraphics graphics, int mouseX, int mouseY, float delta) {
         Minecraft mc = Minecraft.getInstance();
@@ -69,26 +68,26 @@ public class MudRenderer extends Screen {
         super.render(graphics, mouseX, mouseY, delta);
         renderElement(graphics, layout.getRootElement());
     }
-    
+
     private void renderElement(GuiGraphics graphics, Element element) {
         // Get the element's dimensions and position
-        int x = (int)element.getScreenPositionX();
-        int y = (int)element.getScreenPositionY();
-        int width = (int)element.getWidth();
-        int height = (int)element.getHeight();
-        
+        int x = (int) element.getScreenPositionX();
+        int y = (int) element.getScreenPositionY();
+        int width = (int) element.getWidth();
+        int height = (int) element.getHeight();
+
         // Render the element background based on its ID
         String id = element.getId();
         int color = elementColors.getOrDefault(id, new Color(55, 255, 141, 128).getRGB());
-        
+
         // Draw the element background
         graphics.fill(x, y, x + width, y + height, color);
 
         graphics.renderOutline(x, y, width, height, new Color(255, 255, 255, 255).getRGB());
-        
+
         // Draw the element ID for debugging
         graphics.drawString(this.font, id, x + 5, y + 5, 0xFFFFFFFF, false);
-        
+
         // Recursively render children
         for (Element child : element.getChildren()) {
             renderElement(graphics, child);

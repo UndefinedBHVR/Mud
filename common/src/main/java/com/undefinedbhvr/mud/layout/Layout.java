@@ -21,15 +21,6 @@ public class Layout {
     private Element currentElement = null;
 
     /**
-     * Gets the root element of this layout.
-     *
-     * @return The root element of the layout hierarchy
-     */
-    public Element getRootElement() {
-        return rootElement;
-    }
-
-    /**
      * Creates a new layout with specified screen dimensions.
      * Initializes a root element sized to the screen dimensions.
      *
@@ -41,6 +32,15 @@ public class Layout {
         rootElement = currentElement;
         rootElement.setxSizing(new Sizing.Fixed(screenX));
         rootElement.setySizing(new Sizing.Fixed(screenY));
+    }
+
+    /**
+     * Gets the root element of this layout.
+     *
+     * @return The root element of the layout hierarchy
+     */
+    public Element getRootElement() {
+        return rootElement;
     }
 
     /**
@@ -105,7 +105,7 @@ public class Layout {
         if (currentElement.getParent() != null) {
             final Element parent = currentElement.getParent();
             boolean isHorizontal = parent.getDirection() == Direction.Horizontal;
-            
+
             if (isHorizontal) {
                 sizeAlongFlowWidth(currentElement, parent);
             } else {
@@ -120,7 +120,7 @@ public class Layout {
         if (currentElement.getParent() != null) {
             final Element parent = currentElement.getParent();
             boolean isHorizontal = parent.getDirection() == Direction.Horizontal;
-            
+
             if (isHorizontal) {
                 sizeAcrossFlowHeight(currentElement, parent);
             } else {
@@ -133,7 +133,7 @@ public class Layout {
 
     private void sizeAlongFlowWidth(Element currentElement, Element parent) {
         final int childGap = (parent.getChildren().size() - 1) * parent.getChildren().size();
-        
+
         currentElement.setWidth(currentElement.getWidth() + childGap);
         parent.setWidth(parent.getWidth() + currentElement.getWidth());
         parent.setMinWidth(parent.getMinWidth() + currentElement.getMinWidth());
@@ -141,7 +141,7 @@ public class Layout {
 
     private void sizeAlongFlowHeight(Element currentElement, Element parent) {
         final int childGap = (parent.getChildren().size() - 1) * parent.getChildren().size();
-        
+
         currentElement.setHeight(currentElement.getHeight() + childGap);
         parent.setHeight(parent.getHeight() + currentElement.getHeight());
         parent.setMinHeight(parent.getMinHeight() + currentElement.getMinHeight());
